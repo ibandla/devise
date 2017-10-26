@@ -23,9 +23,13 @@ module Devise
         old_current, new_current = self.current_sign_in_ip, request.remote_ip
         self.last_sign_in_ip     = old_current || new_current
         self.current_sign_in_ip  = new_current
-
+        
         self.sign_in_count ||= 0
-        self.sign_in_count += 1
+        old_count = self.sign_in_count.to_i
+        new_count = old_count + 1
+        count_string = new_count.to_s
+        self.sign_in_count = count_string
+        
       end
 
       def update_tracked_fields!(request)
